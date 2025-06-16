@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contador</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f2f2f2;
+      padding-top: 50px;
+    }
+
+    .contenedor {
+      background-color: #ff5e3a;
+      color: white;
+      padding: 40px;
+      border-radius: 15px;
+      display: inline-block;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .aumentar {
+      background-color: #28a745; /* verde */
+    }
+
+    .disminuir {
+      background-color: #17a2b8; /* azul */
+    }
+
+    .contador-box {
+      margin-top: 30px;
+      background-color: white;
+      color: #ff5e3a;
+      font-size: 24px;
+      padding: 15px;
+      border-radius: 30px;
+      box-shadow: 0 0 20px rgba(255, 94, 58, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Vamos a contar</h1>
+    <button class="aumentar" onclick="cambiarContador(1)">🡅 Aumentar</button>
+    <button class="disminuir" onclick="cambiarContador(-1)">🡇 Disminuir</button>
+    <div class="contador-box" id="contador">Contador: 0</div>
+  </div>
+
+  <script>
+    let contador = 0;
+
+    function cambiarContador(valor) {
+      contador += valor;
+      document.getElementById("contador").textContent = "Contador: " + contador;
+    }
+  </script>
+</body>
+</html>
