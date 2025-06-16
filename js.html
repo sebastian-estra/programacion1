@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       var numeroAletorio = generarNumeroAleatorio() 
+       var intentos = 10 ;
+
+       function generarNumeroAleatorio(){
+        return Math.floor(Math.random()*100)+1
+       }
+        /*function main (){
+            const txt = document.querySelector("#txtPrueba");
+            alert(txt.value);
+        }*/
+        function adivinar(){
+            const input= document.querySelector("#txtPrueba");
+            let numeroUsr = parseInt( input.value);
+
+            if ( isNaN(numeroUsr)) {
+                alert(' Digite numro -_-');
+                return;
+            }
+            intentos--;
+
+            if (numeroUsr<numeroAletorio){
+                alert('estas por debajo');
+            }else if (numeroUsr> numeroAletorio){
+                elert('estas por ensima ');
+            }else{
+                alert('fino!!');
+                return;
+            }
+            if (intentos==0){
+                alert('lamento los intentos ')
+                intentos= 10;
+                numeroAletorio= generarNumeroAleatorio();
+            }
+            input.value="" ;
+            alert(`te quedan ${intentos} intentos `);
+        }
+
+        function main () {
+            const btn = document.querySelector("button");
+            btn.addEventListener("click", adivinar);
+            console.log(numeroAletorio);
+        }
+
+        window.onload= main;
+    </script>
+</head>
+<body>
+    <input type="text" name="txtPrueba" id="txtPrueba">
+    <button>¡Clickeame!</button>
+</body>
+</html>

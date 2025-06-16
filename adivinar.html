@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Adivina el número</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #resultado { margin-top: 10px; font-weight: bold; }
+  </style>
+  <script>
+    let numeroSecreto;
+    let intentos;
+
+    function iniciarJuego() {
+      numeroSecreto = Math.floor(Math.random() * 100) + 1; // número entre 1 y 100
+      intentos = 0;
+      document.getElementById("resultado").textContent = "";
+      document.getElementById("intentosRestantes").textContent = "Intentos restantes: 10";
+      document.getElementById("txtNumero").value = "";
+    }
+
+    function adivinar() {
+      const valorIngresado = parseInt(document.getElementById("txtNumero").value);
+      const resultado = document.getElementById("resultado");
+
+      if (isNaN(valorIngresado)) {
+        resultado.textContent = "Por favor ingresa un número válido.";
+        return;
+      }
+
+      intentos++;
+
+      if (valorIngresado === numeroSecreto) {
+        resultado.textContent = `¡Correcto! Adivinaste el número en ${intentos} intento(s).`;
+        return;
+      } else if (valorIngresado < numeroSecreto) {
+        resultado.textContent = "El número es mayor.";
+      } else {
+        resultado.textContent = "El número es menor.";
+      }
+
+      const restantes = 10 - intentos;
+      document.getElementById("intentosRestantes").textContent = "Intentos restantes: " + restantes;
+
+      if (intentos >= 10) {
+        resultado.textContent = `¡Perdiste! El número era ${numeroSecreto}.`;
+      }
+    }
+
+    window.onload = iniciarJuego;
+  </script>
+</head>
+<body>
+  <h2>Adivina el número</h2>
+  <p>Hemos seleccionado un número entre 1 y 100. Tienes 10 intentos para adivinarlo.</p>
+
+  <input type="number" id="txtNumero" placeholder="Ingresa un número">
+  <button onclick="adivinar()">Adivinar</button>
+  <button onclick="iniciarJuego()">Reiniciar</button>
+
+  <p id="intentosRestantes"></p>
+  <p id="resultado"></p>
+</body>
+</html>
