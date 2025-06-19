@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // window.onload= ()=>{
+        //     let nota =1;
+
+        //     switch(true){
+        //         case(nota>=9):
+        //         console.log ("final!!");
+        //         break;
+        //         case (nota >= 7 ):
+        //             console.log ("bien!!");
+        //             break;
+        //             case (nota >= 3):
+        //             console.log ("perdistes!!");
+        //             break;
+        //     }
+
+        //     let dia = 1 ;
+        //     switch(dia){
+        //         case 1:dia
+        //         console.log ("lunes");
+        //         break;
+        //         case 2:dia
+        //         console.log ("lunes");
+        //         break;
+        //     }
+        // }
+
+        function enviar(event){
+            event.preventDefault();
+            console.log('entramos!');
+            const frm = document.forms['mifrm'];
+
+            console.log(frm.elements);
+
+            for ( const item of frm.elements ){
+                console.log(item);
+                console.log(item.name, '=>', item.value);
+            }
+
+           
+
+        }
+
+
+        window.onload=()=> {
+            document.querySelector('#mifrm').addEventListener('submit', enviar);
+        }
+    </script>
+
+    <form id="mifrm">
+        <label for="nombre">Nombre</label>
+        <br>
+        <input type="text" name="nombre" required>
+        <br>
+        <label for="correo">correo</label>
+        <input type="email" name="email" id="email" required>
+        <br>
+        <button>enviar</button>
+    </form>
+</body>
+</html>
+
+<script>
+        function eventLogger(event) {
+            const phase = {
+                1: "captura",
+                2: "objetivo",
+                3: "burbuja"
+            };
+
+            const dia = event.target.textContent.trim();
+            if (dia !== "") {
+                alert(`Hiciste clic en el día ${dia}`);
+            }
+
+            console.log("El target es =>", event.target.tagName);
+            console.log("El actual es =>", event.currentTarget.tagName);
+            console.log("Fase =>", phase[event.eventPhase]);
+        }
+
+        window.onload = () => {
+            const calendar = document.querySelector("#calendar");
+
+            // Captura (true)
+            calendar.addEventListener('click', eventLogger, true);
+
+            // Burbuja (false)
+            calendar.addEventListener('click', eventLogger, false);
+        };
+    </script>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #outer {
+            background-color: lightblue;
+        }
+ 
+        #middle {
+            background-color: lightcoral;
+        }
+ 
+        #inner {
+            background-color: lightgreen;
+        }
+ 
+        div {
+            padding: 40px;
+        }
+ 
+        div:hover {
+            cursor: pointer;
+        }
+    </style>
+ 
+    <script>
+        function eventLogger(event) {
+            const phase = {
+                1: "captura",
+                2: "Objetivo",
+                3: "Burbuja"
+            }
+ 
+            console.log('El target es =>', event.target.id);
+            console.log('El actual es =>', event.currentTarget.id);
+            console.log(phase[event.eventPhase]);
+        }
+ 
+        window.onload = () => {
+            const outer = document.querySelector("#outer");
+            const middle = document.querySelector("#middle");
+            const inner = document.querySelector("#inner");
+ 
+            outer.addEventListener('click', eventLogger, true);
+            middle.addEventListener('click', eventLogger, true);
+            inner.addEventListener('click', eventLogger, true);
+ 
+            outer.addEventListener('click', eventLogger, false);
+            middle.addEventListener('click', eventLogger, false);
+            inner.addEventListener('click', eventLogger, false);
+        };
+    </script>
+</head>
+ 
+<body>
+    <div id="outer">
+        outer
+        <div id="middle">
+            middle
+            <div id="inner">
+                Inner
+            </div>
+        </div>
+    </div>
+</body>
+ 
+</html>
