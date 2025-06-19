@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Tareas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+
+  <script>
+    const tareas = [];
+
+    window.onload = () => {
+      agregarTarea();
+      eliminarTarea();
+    };
+
+    function agregarTarea() {
+      const form = document.forms["formulario"];
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const titulo = form["titulo"].value.trim();
+        const prioridad = form["prioridad"].value;
+        const id = tareas.length +1 ;
+
+        tareas.push({ titulo, prioridad });
+
+        const tbody = document.querySelector("tbody");
+        const fila = document.createElement("tr");
+
+        const celdaId = document.createElement("td");
+        celdaId.textContent = id;
+
+        const celdaTitulo = document.createElement("td");
+        celdaTitulo.textContent = titulo;
+
+        const celdaPrioridad = document.createElement("td");
+        celdaPrioridad.textContent = prioridad;
+
+        const celdaAccion = document.createElement("td");
+        const botonEliminar = document.createElement("button");
+        botonEliminar.textContent = "Eliminar";
+        botonEliminar.className = "btn btn-danger";
+        botonEliminar.setAttribute("data-id", id);
+
+        celdaAccion.appendChild(botonEliminar);
+
+        fila.appendChild(celdaId);
+        fila.appendChild(celdaTitulo);
+        fila.appendChild(celdaPrioridad);
+        fila.appendChild(celdaAccion);
+
+        tbody.appendChild(fila);
+        form.reset();
+      });
+    }
+
+    function eliminarTarea() {
+      document.querySelector("tbody").addEventListener("click", (event) => {
+        if (event.target.tagName === "BUTTON") {
+          const id = parseInt(event.target.dataset.id);
+          tareas[id] = null;
+          event.target.closest("tr").remove();
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container mt-4">
+    <h2>Agregar tarea</h2>
+    <form id="formulario">
+      <div class="row mb-3">
+        <div class="col-5">
+          <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título de la tarea" required />
+        </div>
+        <div class="col-4">
+          <select class="form-select" id="prioridad" name="prioridad" required>
+            <option value="" disabled selected>Prioridad</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+        <div class="col-3">
+          <button class="btn btn-success w-100">Agregar</button>
+        </div>
+      </div>
+    </form>
+
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Prioridad</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</body>
+
+</html>

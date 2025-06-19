@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+ 
+    <script>
+        const personas = [];
+ 
+        window.onload = () => {
+            Agregar();
+            Eliminar();
+        }
+ 
+        function Agregar() {
+            const frm = document.forms["formulario"];
+            frm.addEventListener('submit', (event) => {
+                event.preventDefault();
+ 
+                const nombre = frm["nombre"].value.trim();
+                const edad = frm["edad"].value.trim();
+                const id = personas.length + 1;
+ 
+                personas.push({ nombre, edad });
+ 
+                const tbody = document.querySelector('tbody');
+                const fila = document.createElement('tr');
+ 
+                const celdaId = document.createElement('td');
+                celdaId.textContent = id;
+ 
+                const celdaNombre = document.createElement('td');
+                celdaNombre.textContent = nombre;
+ 
+                const celdaEdad = document.createElement('td');
+                celdaEdad.textContent = edad;
+ 
+                const celdaAccion = document.createElement('td');
+                const botonEliminar = document.createElement('button');
+                botonEliminar.textContent = "Eliminar";
+                botonEliminar.className = "btn btn-danger";
+                botonEliminar.setAttribute("data-id", id);
+ 
+                celdaAccion.appendChild(botonEliminar);
+ 
+                fila.appendChild(celdaId);
+                fila.appendChild(celdaNombre);
+                fila.appendChild(celdaEdad);
+                fila.appendChild(celdaAccion);
+ 
+                tbody.appendChild(fila);
+                frm.reset();
+            });
+        }
+ 
+        function Eliminar() {
+            document.querySelector('tbody')
+                .addEventListener('click', (event) => {
+                    if (event.target.tagName == 'BUTTON') {
+                        const id = parseInt(event.target.dataset.id) - 1;
+                        personas[id] = null;
+                        event.target.closest('tr').remove();
+                    }
+                });
+        }
+    </script>
+</head>
+ 
+<body>
+    <div class="container">
+        <h2>Personas</h2>
+        <form id="formulario">
+            <div class="row">
+                <div class="col-6">
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre Usuario"
+                        required>
+                </div>
+                <div class="col-4">
+                    <input type="number" class="form-control" min="1" id="edad" name="edad" required
+                        placeholder="Meta su edad">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-success w-100">Agregar</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+ 
+</html>
