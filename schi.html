@@ -68,32 +68,3 @@
     </form>
 </body>
 </html>
-
-<script>
-        function eventLogger(event) {
-            const phase = {
-                1: "captura",
-                2: "objetivo",
-                3: "burbuja"
-            };
-
-            const dia = event.target.textContent.trim();
-            if (dia !== "") {
-                alert(`Hiciste clic en el día ${dia}`);
-            }
-
-            console.log("El target es =>", event.target.tagName);
-            console.log("El actual es =>", event.currentTarget.tagName);
-            console.log("Fase =>", phase[event.eventPhase]);
-        }
-
-        window.onload = () => {
-            const calendar = document.querySelector("#calendar");
-
-            // Captura (true)
-            calendar.addEventListener('click', eventLogger, true);
-
-            // Burbuja (false)
-            calendar.addEventListener('click', eventLogger, false);
-        };
-    </script>
